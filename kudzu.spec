@@ -1,14 +1,15 @@
 Summary:	The Red Hat Linux hardware probing tool
 Summary(pl):	Narzêdzie do wykrywania sprzêtu
 Name:		kudzu
-Version:	0.99.82
-Release:	0.1
+Version:	0.99.88
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
 Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
+Patch1:		%{name}-gcc295.patch
 BuildRequires:	newt-devel
 BuildRequires:	pciutils-devel
 BuildRequires:	popt-devel
@@ -49,9 +50,18 @@ for hardware probing and configuration.
 Ten pakiet zawiera bibliotekê libkudzu, u¿ywan± do wykrywania sprzêtu
 i konfiguracji.
 
+%package rc
+Summary:	rc-scripts for kudzu
+Group:		Applications/System
+Requires:	%{name}
+
+%description rc
+rc-scripts for kudzu
+
 %prep
 %setup -q
 %patch0 -p1 -b .nopython
+%patch1 -p1
 install %{SOURCE1} .
 
 # hack: do not start kudzu on s390/s390x on bootup
@@ -63,17 +73,19 @@ perl -pi -e "s/345/-/g" kudzu.init
 ln -s `pwd` kudzu
 
 %{__make} RPM_OPT_FLAGS="%{rpmcflags} -I." all kudzu ktest DIET=
+(cd ddcprobe && %{__make})
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install install-program DESTDIR=$RPM_BUILD_ROOT
+(cd ddcprobe && %{__make} install DESTDIR=$RPM_BUILD_ROOT)
 
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%post rc
 /sbin/chkconfig --add kudzu
 if [ -f /var/lock/subsys/kudzu ]; then
 	/etc/rc.d/init.d/kudzu restart >&2
@@ -81,7 +93,7 @@ else
 	echo "Run \"/etc/rc.d/init.d/kudzu start\" to start kudzu %{version} services."
 fi
 
-%preun
+%preun rc
 if [ "$1" = "0" ]; then
 	if [ -f /var/lock/subsys/kudzu ]; then
 		/etc/rc.d/init.d/kudzu stop >&2
@@ -95,11 +107,8 @@ fi
 %attr(755,root,root) %{_sbindir}/kudzu
 %attr(755,root,root) %{_sbindir}/module_upgrade
 %attr(755,root,root) %{_sbindir}/updfstab
+%attr(755,root,root) %{_sbindir}/ddcprobe
 %{_mandir}/man8/*
-%config(noreplace) /etc/sysconfig/kudzu
-%attr(754,root,root) /etc/rc.d/init.d/kudzu
-%config(noreplace) %{_sysconfdir}/updfstab.conf
-%config %{_sysconfdir}/updfstab.conf.default
 %{_libdir}/python*/site-packages/*
 
 %files devel
@@ -107,3 +116,10 @@ fi
 %{_libdir}/libkudzu.a
 %{_libdir}/libkudzu_loader.a
 %{_includedir}/kudzu
+
+%files rc
+%defattr(644,root,root,755)
+%config(noreplace) %{_sysconfdir}/sysconfig/kudzu
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/kudzu
+%config(noreplace) %{_sysconfdir}/updfstab.conf
+%config %{_sysconfdir}/updfstab.conf.default
