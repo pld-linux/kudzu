@@ -25,73 +25,46 @@ OPTION4=5	#
 # Get service config - may override defaults
 [ -f /etc/sysconfig/kudzu ] && . /etc/sysconfig/kudzu
 
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/kudzu ]; then
+		# check whether another kudzu process is not started manually
+		if pidof kudzu >/dev/null; then
+			sleep 30
+			killall kudzu
+			killall -9 kudzu
+		fi
 		# show "Starting %s service" kudzu
 		msg_starting kudzu
-		#daemon kudzu
-		busy
-		kudzu
-		ok
+		touch /var/lock/subsys/kudzu
+		daemon kudzu --quiet
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/kudzu
+		rm -f /var/lock/subsys/kudzu >/dev/null 2>&1
 	else
-		# show "%s service is already running." kudzu
 		msg_already_running kudzu
-		exit 1
 	fi
 	;;
   stop)
-	# Stop daemons.
-	# show "Stopping %s service" kudzu
-	if [ -f /var/lock/subsys/kudzu ]; then
-		msg_stopping kudzu
-		busy
-		#killproc kudzu
-		ok
-		#RETVAL=$?
-		RETVAL=0
-		rm -f /var/lock/subsys/kudzu
-	else
-		# show "%s service is not running." kudzu
-		msg_not_running kudzu
-		exit 1
-	fi	
+	killall kudzu
+	killall -9 kudzu
+	rm -f /var/lock/subsys/kudzu >/dev/null 2>&1
 	;;
-  restart)
+  restart|force-reload)
 	$0 stop
 	$0 start
-	;;
-  reload)
-	if [ -f /var/lock/subsys/kudzu ]; then
-		# show "Reload %s service" kudzu
-		msg_reloading kudzu
-		#killproc kudzu -HUP
-		RETVAL=$?
-	else
-		# show "%s service is not running." kudzu
-		msg_not_running kudzu
-		RETVAL=1
-	fi
-	;;
-  force-reload)
-	# if program allows reloading without stopping
-	$0 reload
-
-	# or if it doesn't
-	$0 stop && $0 start
+	exit $?
 	;;
   status)
 	status kudzu
-	RETVAL=$?
+	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|reload|force-reload|status}"
-	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
-	exit 1
+	# show "Usage: %s {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
