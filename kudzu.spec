@@ -2,7 +2,7 @@ Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.1.37
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
@@ -73,7 +73,8 @@ Skrypty rc dla kudzu.
 %patch0 -p1 -b .nopython
 %patch1 -p1
 install %{SOURCE1} .
-mv -f po/eu_ES.po po/eu.po
+mv -f po/eu{_ES,}.po
+mv -f po/{no,nb}.po
 
 # hack: do not start kudzu on s390/s390x on bootup
 %ifarch s390 s390x
