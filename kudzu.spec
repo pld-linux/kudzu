@@ -21,6 +21,7 @@ BuildRequires:	popt-devel
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 PreReq:		modutils >= 2.3.11-5
+%pyrequires_eq	python-libs
 Requires:	hwdata
 Requires:	pam >= 0.74-17
 %ifarch ia64
