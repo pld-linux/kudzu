@@ -2,7 +2,7 @@ Summary:	The Red Hat Linux hardware probing tool
 Summary(pl):	Narzêdzie do wykrywania sprzêtu
 Name:		kudzu
 Version:	0.99.89
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
@@ -93,6 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install -C ddcprobe \
 	DESTDIR=$RPM_BUILD_ROOT
 
+for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu_ES,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+done
 %find_lang %{name}
 
 %clean
