@@ -1,13 +1,13 @@
 Summary:	The Red Hat Linux hardware probing tool
 Summary(pl):	Narzêdzie do wykrywania sprzêtu
 Name:		kudzu
-Version:	0.99.89
-Release:	0.4
+Version:	1.1.37
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	196e6357ab6acd54ff8f785c10cb2d78
+# Source0-md5:	537cc5d120a96f777f660f67ff340d4a
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-gcc295.patch
@@ -83,12 +83,12 @@ perl -pi -e "s/345/-/g" kudzu.init
 %build
 ln -s `pwd` kudzu
 
-%{__make} all kudzu ktest \
+%{__make} \
 	CC="%{__cc}" \
 	RPM_OPT_FLAGS="%{rpmcflags} -I." \
 	DIET=
 
-%ifarch %{ix86}
+%ifarch %{ix86} ppc
 %{__make} -C ddcprobe \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall"
@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install install-program \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%ifarch %{ix86}
+%ifarch %{ix86} ppc
 %{__make} install -C ddcprobe \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
@@ -135,7 +135,7 @@ fi
 %attr(755,root,root) %{_sbindir}/kudzu
 %attr(755,root,root) %{_sbindir}/module_upgrade
 %attr(755,root,root) %{_sbindir}/updfstab
-%ifarch %{ix86}
+%ifarch %{ix86} ppc
 %attr(755,root,root) %{_sbindir}/ddcprobe
 %endif
 %{_mandir}/man8/*
@@ -153,5 +153,5 @@ fi
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/kudzu
 %attr(754,root,root) /etc/rc.d/init.d/kudzu
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/updfstab.conf
-# move to %doc?
+# this is included from updfstab.conf
 %config %{_sysconfdir}/updfstab.conf.default
