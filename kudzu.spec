@@ -1,13 +1,13 @@
 Name:		kudzu
 Version:	0.99.64
-Release:	2
+Release:	0.3
 License:	GPL
 Summary:	The Red Hat Linux hardware probing tool.
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
 Source0:	%{name}-%{version}.tar.gz
 Obsoletes:	rhs-hwdiag setconsole
-Prereq:		chkconfig, modutils >= 2.3.11-5, /etc/init.d
+Prereq:		chkconfig, modutils >= 2.3.11-5
 Requires:	pam >= 0.74-17, hwdata
 %ifarch ia64
 Requires:	/usr/sbin/eepro100-diag
