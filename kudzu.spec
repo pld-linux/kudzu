@@ -7,6 +7,7 @@ License:	GPL
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	196e6357ab6acd54ff8f785c10cb2d78
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-gcc295.patch
