@@ -60,7 +60,7 @@ Summary(pl):	Skrypty rc dla kudzu
 Group:		Applications/System
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description rc
 rc-scripts for kudzu.
