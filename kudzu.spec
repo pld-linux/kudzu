@@ -69,6 +69,7 @@ Skrypty rc dla kudzu.
 %patch0 -p1 -b .nopython
 %patch1 -p1
 install %{SOURCE1} .
+mv -f po/eu_ES.po po/eu.po
 
 # hack: do not start kudzu on s390/s390x on bootup
 %ifarch s390 s390x
