@@ -1,10 +1,11 @@
 #!/bin/sh
 #
-# service	kudzu short service description
+# kudzu	The Red Hat Linux hardware probing tool.
 #
 # chkconfig:    345  05 95
 #
-# description:	kudzu long service description
+# description:	Kudzu is a hardware probing tool run at system boot time to determine
+#		what hardware has been added or removed from the system.
 #
 # $Id$
 
