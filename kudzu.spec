@@ -16,7 +16,6 @@ BuildRequires:	pciutils-devel
 BuildRequires:	popt-devel
 BuildRequires:	python
 BuildRequires:	python-devel
-PreReq:		chkconfig,
 PreReq:		modutils >= 2.3.11-5
 Requires:	pam >= 0.74-17
 Requires:	hwdata
@@ -53,11 +52,17 @@ i konfiguracji.
 
 %package rc
 Summary:	rc-scripts for kudzu
+Summary(pl):	Skrypty rc dla kudzu
 Group:		Applications/System
-Requires:	%{name}
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name} = %{version}
 
 %description rc
-rc-scripts for kudzu
+rc-scripts for kudzu.
+
+%description rc -l pl
+Skrypty rc dla kudzu.
 
 %prep
 %setup -q
@@ -73,13 +78,19 @@ perl -pi -e "s/345/-/g" kudzu.init
 %build
 ln -s `pwd` kudzu
 
-%{__make} RPM_OPT_FLAGS="%{rpmcflags} -I." all kudzu ktest DIET=
-(cd ddcprobe && %{__make})
+%{__make} all kudzu ktest \
+	RPM_OPT_FLAGS="%{rpmcflags} -I." \
+	DIET=
+
+%{__make} -C ddcprobe
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install install-program DESTDIR=$RPM_BUILD_ROOT
-(cd ddcprobe && %{__make} install DESTDIR=$RPM_BUILD_ROOT)
+%{__make} install install-program \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} install -C ddcprobe \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
