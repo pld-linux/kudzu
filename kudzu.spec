@@ -18,8 +18,8 @@ BuildRequires:	pciutils-devel
 BuildRequires:	perl-base
 %endif
 BuildRequires:	popt-devel
-BuildRequires:	python
 BuildRequires:	python-devel
+BuildRequires:	rpm-pythonprov
 PreReq:		modutils >= 2.3.11-5
 Requires:	hwdata
 Requires:	pam >= 0.74-17
@@ -89,7 +89,9 @@ ln -s `pwd` kudzu
 	DIET=
 
 %ifarch %{ix86}
-%{__make} -C ddcprobe
+%{__make} -C ddcprobe \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -Wall"
 %endif
 
 %install
@@ -137,7 +139,8 @@ fi
 %attr(755,root,root) %{_sbindir}/ddcprobe
 %endif
 %{_mandir}/man8/*
-%{_libdir}/python*/site-packages/*
+%{py_sitedir}/kudzu.py*
+%attr(755,root,root) %{py_sitedir}/_kudzumodule.so
 
 %files devel
 %defattr(644,root,root,755)
