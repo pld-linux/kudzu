@@ -1,0 +1,15 @@
+diff -u kudzu-0.99.82/Makefile~ kudzu-0.99.82/Makefile
+--- kudzu-0.99.82/Makefile~	Mon Dec  9 22:25:38 2002
++++ kudzu-0.99.82/Makefile	Mon Nov  4 22:29:47 2002
+@@ -135,11 +135,6 @@
+ 	 mkdir -p $(libdir)/$$ver/site-packages ; \
+ 	 install -m 755 $$ver/_kudzumodule.so $(libdir)/$$ver/site-packages ;\
+ 	 install -m 644 kudzu.py $(libdir)/$$ver/site-packages ;\
+-	 if [ $$ver = "python1.5" ]; then \
+-	   python -c 'from compileall import *; compile_dir("'$$DESTDIR'/usr/lib/'$$ver'",10,"/usr/lib/'$$ver'")'  || :;\
+-	 else \
+-	   python2 -c 'from compileall import *; compile_dir("'$$DESTDIR'/usr/lib/'$$ver'",10,"/usr/lib/'$$ver'")' || python -c 'from compileall import *; compile_dir("'$$DESTDIR'/usr/lib/'$$ver'",10,"/usr/lib/'$$ver'")' ; \
+-	 fi ;\
+ 	done
+ 
+ tag-archive:
