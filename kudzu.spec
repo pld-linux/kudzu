@@ -13,10 +13,12 @@ Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-gcc295.patch
 BuildRequires:	newt-devel
 BuildRequires:	pciutils-devel
+%ifarch s390 s390x
+BuildRequires:	perl-base
+%endif
 BuildRequires:	popt-devel
 BuildRequires:	python
 BuildRequires:	python-devel
-BuildRequires:	sed
 PreReq:		modutils >= 2.3.11-5
 Requires:	hwdata
 Requires:	pam >= 0.74-17
@@ -136,7 +138,8 @@ fi
 
 %files rc
 %defattr(644,root,root,755)
-%config(noreplace) %{_sysconfdir}/sysconfig/kudzu
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/kudzu
-%config(noreplace) %{_sysconfdir}/updfstab.conf
+%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/kudzu
+%attr(754,root,root) /etc/rc.d/init.d/kudzu
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/updfstab.conf
+# move to %doc?
 %config %{_sysconfdir}/updfstab.conf.default
