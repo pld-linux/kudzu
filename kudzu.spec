@@ -1,19 +1,23 @@
 Summary:	The Red Hat Linux hardware probing tool
 Summary(pl):	Narzêdzie do wykrywania sprzêtu
 Name:		kudzu
-Version:	0.99.64
-Release:	0.5
+Version:	0.99.82
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
 Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
+Patch0:		%{name}-nopython.patch
 BuildRequires:	newt-devel
 BuildRequires:	pciutils-devel
+BuildRequires:	popt-devel
+BuildRequires:	python
 BuildRequires:	python-devel
 PreReq:		chkconfig,
 PreReq:		modutils >= 2.3.11-5
-Requires:	pam >= 0.74-17, hwdata
+Requires:	pam >= 0.74-17
+Requires:	hwdata
 %ifarch ia64
 Requires:	/usr/sbin/eepro100-diag
 %endif
@@ -47,6 +51,7 @@ i konfiguracji.
 
 %prep
 %setup -q
+%patch0 -p1 -b .nopython
 install %{SOURCE1} .
 
 # hack: do not start kudzu on s390/s390x on bootup
@@ -57,7 +62,7 @@ perl -pi -e "s/345/-/g" kudzu.init
 %build
 ln -s `pwd` kudzu
 
-%{__make} RPM_OPT_FLAGS="%{rpmcflags} -I." all kudzu ktest
+%{__make} RPM_OPT_FLAGS="%{rpmcflags} -I." all kudzu ktest DIET=
 
 %install
 rm -rf $RPM_BUILD_ROOT
