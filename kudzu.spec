@@ -1,14 +1,12 @@
-Summary:	Hardware probing tool.
 Name:		kudzu
-Version:	0.99.52
-Release:	0.1
-Group:		Applications/System
+Version:	0.99.64
+Release:	2
 License:	GPL
-Source:		%{name}-%{version}.tar.gz
+Summary:	The Red Hat Linux hardware probing tool.
+Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
-BuildRequires:	pciutils-devel
-BuildRequires:	python-devel
-BuildRequires:	newt-devel
+Source0:	%{name}-%{version}.tar.gz
+Obsoletes:	rhs-hwdiag setconsole
 Prereq:		chkconfig, modutils >= 2.3.11-5, /etc/init.d
 Requires:	pam >= 0.74-17, hwdata
 %ifarch ia64
@@ -16,8 +14,8 @@ Requires:	/usr/sbin/eepro100-diag
 %endif
 Conflicts:	Xconfigurator <= 4.9
 Conflicts:	mouseconfig < 4.18
+BuildPrereq:	pciutils-devel python-devel python newt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	rhs-hwdiag setconsole
 
 %description
 Kudzu is a hardware probing tool run at system boot time to determine
@@ -43,11 +41,11 @@ perl -pi -e "s/345/-/g" kudzu.init
 %build
 ln -s `pwd` kudzu
 
-make RPM_OPT_FLAGS="%{optflags} -I. -I/usr/include" all kudzu ktest
+%{__make} RPM_OPT_FLAGS="%{optflags} -I." all kudzu ktest
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install install-program DESTDIR=$RPM_BUILD_ROOT
+%{__make} install install-program DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
@@ -63,20 +61,20 @@ if [ $1 = 0 ]; then
 fi
 
 %files -f %{name}.lang
-%defattr(-,root,root)
+%defattr(644,root,root,755)
 %doc README hwconf-description
-%{_sbindir}/kudzu
-%{_sbindir}/module_upgrade
-%{_sbindir}/updfstab
+%attr(755,root,root) %{_sbindir}/kudzu
+%attr(755,root,root) %{_sbindir}/module_upgrade
+%attr(755,root,root) %{_sbindir}/updfstab
 %{_mandir}/man8/*
 %config(noreplace) /etc/sysconfig/kudzu
 %config /etc/rc.d/init.d/kudzu
-%config(noreplace) /etc/updfstab.conf
-%config /etc/updfstab.conf.default
-/usr/lib/python*/site-packages/*
+%config(noreplace) %{_sysconfdir}/updfstab.conf
+%config %{_sysconfdir}/updfstab.conf.default
+%{_libdir}/python*/site-packages/*
 
 %files devel
-%defattr(-,root,root)
+%defattr(644,root,root,755)
 %{_libdir}/libkudzu.a
 %{_libdir}/libkudzu_loader.a
 %{_includedir}/kudzu
