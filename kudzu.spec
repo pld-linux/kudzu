@@ -2,7 +2,7 @@ Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.1.37
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
@@ -87,7 +87,8 @@ ln -s `pwd` kudzu
 %{__make} \
 	CC="%{__cc}" \
 	RPM_OPT_FLAGS="%{rpmcflags} -I." \
-	DIET=
+	DIET= \
+	libdir=%{_libdir}
 
 %ifarch %{ix86} ppc
 %{__make} -C ddcprobe \
@@ -99,7 +100,8 @@ ln -s `pwd` kudzu
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install install-program \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	libdir=$RPM_BUILD_ROOT%{_libdir}
 
 %ifarch %{ix86} ppc
 %{__make} install -C ddcprobe \
