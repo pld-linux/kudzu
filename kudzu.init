@@ -2,7 +2,7 @@
 #
 # kudzu	The Red Hat Linux hardware probing tool.
 #
-# chkconfig:    345  05 95
+# chkconfig:	345 05 95
 #
 # description:	Kudzu is a hardware probing tool run at system boot time to determine
 #		what hardware has been added or removed from the system.
@@ -43,10 +43,10 @@ case "$1" in
 		msg_already_running kudzu
 		exit 1
 	fi
-        ;;
+	;;
   stop)
-        # Stop daemons.
-        # show "Stopping %s service" kudzu
+	# Stop daemons.
+	# show "Stopping %s service" kudzu
 	if [ -f /var/lock/subsys/kudzu ]; then
 		msg_stopping kudzu
 		busy
@@ -60,17 +60,19 @@ case "$1" in
 		msg_not_running kudzu
 		exit 1
 	fi	
-        ;;
+	;;
   restart)
-        $0 stop
+	$0 stop
 	$0 start
-        ;;
+	;;
   reload)
 	if [ -f /var/lock/subsys/kudzu ]; then
 		# show "Reload %s service" kudzu
 		msg_reloading kudzu
+		busy
 		#killproc kudzu -HUP
 		RETVAL=$?
+		[ $RETVAL -eq 0 ] && ok || died
 	else
 		# show "%s service is not running." kudzu
 		msg_not_running kudzu
@@ -78,7 +80,7 @@ case "$1" in
 	fi
 	;;
   force-reload)
-  	# if program allows reloading without stopping
+	# if program allows reloading without stopping
 	$0 reload
 
 	# or if it doesn't
@@ -87,11 +89,11 @@ case "$1" in
   status)
 	status kudzu
 	RETVAL=$?
-        ;;
+	;;
   *)
-        # show "Usage: %s {start|stop|status|restart|reload|force-reload}" $0
-	msg_usage "$0 {start|stop|status|restart|reload|force-reload}"
-        exit 1
+	# show "Usage: %s {start|stop|restart|reload|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 1
 esac
 
 exit $RETVAL
