@@ -19,7 +19,6 @@ BuildRequires:	perl-base
 %endif
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
-BuildRequires:	rpm-pythonprov
 PreReq:		modutils >= 2.3.11-5
 %pyrequires_eq	python-libs
 Requires:	hwdata
