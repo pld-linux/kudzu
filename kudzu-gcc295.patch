@@ -1,0 +1,27 @@
+--- kudzu/pcmcia.c.orig	Thu Jan 23 13:54:40 2003
++++ kudzu/pcmcia.c	Thu Jan 23 13:54:08 2003
+@@ -400,15 +400,15 @@
+ #define IRQ	3
+ 
+ static struct adjust_t adj[] =  {
+-	{ ADD, IO, 0, .resource.io = { 0x0c00, 0x0100, 0 } },
+-	{ ADD, IO, 0, .resource.io = { 0x0100, 0x0200, 0 } },
+-	{ ADD, MEM, 0, .resource.memory = { 0xc0000, 0x40000 } },
+-	{ ADD, MEM, 0, .resource.memory = { 0x60000000, 0x1000000 } },
+-	{ ADD, MEM, 0, .resource.memory = { 0xa0000000, 0x1000000 } },
+-	{ ADD, IO, 0, .resource.io = { 0x0a00, 0x0100, 0 } },
+-	{ REMOVE, IRQ, 0, .resource.irq = { 4 } },
+-	{ REMOVE, IRQ, 0, .resource.irq = { 7 } },
+-	{ REMOVE, IRQ, 0, .resource.irq = { 12 } },
++	{ ADD, IO, 0, .resource = {.io = { 0x0c00, 0x0100, 0 }} },
++	{ ADD, IO, 0, .resource = {.io = { 0x0100, 0x0200, 0 }} },
++	{ ADD, MEM, 0, .resource = {.memory = { 0xc0000, 0x40000 }} },
++	{ ADD, MEM, 0, .resource = {.memory = { 0x60000000, 0x1000000 }} },
++	{ ADD, MEM, 0, .resource = {.memory = { 0xa0000000, 0x1000000 }} },
++	{ ADD, IO, 0, .resource = {.io = { 0x0a00, 0x0100, 0 }} },
++	{ REMOVE, IRQ, 0, .resource = {.irq = { 4 }} },
++	{ REMOVE, IRQ, 0, .resource = {.irq = { 7 }} },
++	{ REMOVE, IRQ, 0, .resource = {.irq = { 12 }} },
+ 	{ 0, 0, 0 }
+ };
+ 
