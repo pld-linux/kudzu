@@ -4,7 +4,7 @@
 #
 # chkconfig:	345 05 95
 #
-# description:	Kudzu is a hardware probing tool run at system boot time to determine
+# description:	Kudzu is a hardware probing tool run at system boot time to determine \
 #		what hardware has been added or removed from the system.
 #
 # $Id$
