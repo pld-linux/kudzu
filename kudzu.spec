@@ -1,5 +1,5 @@
-Summary:	The Red Hat Linux hardware probing tool
-Summary(pl):	Narzêdzie do wykrywania sprzêtu
+Summary:	Hardware probing tool developed by Red Hat
+Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.1.37
 Release:	0.1
