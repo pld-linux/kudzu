@@ -1,7 +1,7 @@
 Summary:	The Red Hat Linux hardware probing tool
 Summary(pl):	Narzêdzie do wykrywania sprzêtu
 Name:		kudzu
-Version:	0.99.88
+Version:	0.99.89
 Release:	0.2
 License:	GPL
 Group:		Applications/System
