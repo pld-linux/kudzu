@@ -16,9 +16,10 @@ BuildRequires:	pciutils-devel
 BuildRequires:	popt-devel
 BuildRequires:	python
 BuildRequires:	python-devel
+BuildRequires:	sed
 PreReq:		modutils >= 2.3.11-5
-Requires:	pam >= 0.74-17
 Requires:	hwdata
+Requires:	pam >= 0.74-17
 %ifarch ia64
 Requires:	/usr/sbin/eepro100-diag
 %endif
