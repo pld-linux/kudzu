@@ -1,11 +1,12 @@
 Name:		kudzu
 Version:	0.99.64
-Release:	0.3
+Release:	0.5
 License:	GPL
 Summary:	The Red Hat Linux hardware probing tool.
 Group:		Applications/System
 URL:		http://rhlinux.redhat.com/kudzu/
 Source0:	%{name}-%{version}.tar.gz
+Source1:	%{name}.init
 Obsoletes:	rhs-hwdiag setconsole
 Prereq:		chkconfig, modutils >= 2.3.11-5
 Requires:	pam >= 0.74-17, hwdata
@@ -32,6 +33,7 @@ for hardware probing and configuration.
 
 %prep
 %setup -q
+install %{SOURCE1} .
 
 # hack: do not start kudzu on s390/s390x on bootup
 %ifarch s390 s390x
@@ -53,11 +55,19 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
-chkconfig --add kudzu
+/sbin/chkconfig --add kudzu
+if [ -f /var/lock/subsys/kudzu ]; then
+	/etc/rc.d/init.d/kudzu restart >&2
+else
+	echo "Run \"/etc/rc.d/init.d/kudzu start\" to start kudzu %{version} services."
+fi
 
 %preun
-if [ $1 = 0 ]; then
-	chkconfig --del kudzu
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/kudzu ]; then
+		/etc/rc.d/init.d/kudzu stop >&2
+	fi
+	/sbin/chkconfig --del kudzu
 fi
 
 %files -f %{name}.lang
@@ -68,7 +78,7 @@ fi
 %attr(755,root,root) %{_sbindir}/updfstab
 %{_mandir}/man8/*
 %config(noreplace) /etc/sysconfig/kudzu
-%config /etc/rc.d/init.d/kudzu
+%attr(754,root,root) /etc/rc.d/init.d/kudzu
 %config(noreplace) %{_sysconfdir}/updfstab.conf
 %config %{_sysconfdir}/updfstab.conf.default
 %{_libdir}/python*/site-packages/*
