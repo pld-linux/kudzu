@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install -C ddcprobe \
 	DESTDIR=$RPM_BUILD_ROOT
 
-for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu_ES,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
+for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
 	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
 done
 %find_lang %{name}
