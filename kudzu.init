@@ -69,10 +69,8 @@ case "$1" in
 	if [ -f /var/lock/subsys/kudzu ]; then
 		# show "Reload %s service" kudzu
 		msg_reloading kudzu
-		busy
 		#killproc kudzu -HUP
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && ok || died
 	else
 		# show "%s service is not running." kudzu
 		msg_not_running kudzu
