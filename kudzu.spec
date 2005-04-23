@@ -1,19 +1,19 @@
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
-Version:	1.1.37
-Release:	0.3
+Version:	1.1.113
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	537cc5d120a96f777f660f67ff340d4a
+# Source0-md5:	1ddb17d337ee213ba28b68bd76c07aaf
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-gcc295.patch
 URL:		http://rhlinux.redhat.com/kudzu/
 BuildRequires:	newt-devel
-BuildRequires:	pciutils-devel
+BuildRequires:	pciutils-devel >= 2.1.99
 %ifarch s390 s390x
 BuildRequires:	perl-base
 %endif
@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
+install fix-mouse-psaux $RPM_BUILD_ROOT/%{_sbindir}
+
 for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
 	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
 done
@@ -137,7 +139,7 @@ fi
 %doc README hwconf-description
 %attr(755,root,root) %{_sbindir}/kudzu
 %attr(755,root,root) %{_sbindir}/module_upgrade
-%attr(755,root,root) %{_sbindir}/updfstab
+%attr(755,root,root) %{_sbindir}/fix-mouse-psaux
 %ifarch %{ix86} ppc
 %attr(755,root,root) %{_sbindir}/ddcprobe
 %endif
@@ -155,6 +157,3 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/kudzu
 %attr(754,root,root) /etc/rc.d/init.d/kudzu
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/updfstab.conf
-# this is included from updfstab.conf
-%config %{_sysconfdir}/updfstab.conf.default
