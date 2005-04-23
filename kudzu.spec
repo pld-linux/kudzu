@@ -140,9 +140,6 @@ fi
 %attr(755,root,root) %{_sbindir}/kudzu
 %attr(755,root,root) %{_sbindir}/module_upgrade
 %attr(755,root,root) %{_sbindir}/fix-mouse-psaux
-%ifarch %{ix86} ppc
-%attr(755,root,root) %{_sbindir}/ddcprobe
-%endif
 %{_mandir}/man8/*
 %{py_sitedir}/kudzu.py*
 %attr(755,root,root) %{py_sitedir}/_kudzumodule.so
