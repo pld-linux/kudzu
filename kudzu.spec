@@ -12,6 +12,7 @@ Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-gcc295.patch
 URL:		http://rhlinux.redhat.com/kudzu/
+BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	pciutils-devel >= 2.1.99
 %ifarch s390 s390x
@@ -108,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
-install fix-mouse-psaux $RPM_BUILD_ROOT/%{_sbindir}
+install fix-mouse-psaux $RPM_BUILD_ROOT%{_sbindir}
 
 for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
 	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
