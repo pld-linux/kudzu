@@ -74,7 +74,7 @@ Skrypty rc dla kudzu.
 %patch1 -p1
 install %{SOURCE1} .
 mv -f po/eu{_ES,}.po
-mv -f po/{no,nb}.po
+rm -f po/no.po
 
 # hack: do not start kudzu on s390/s390x on bootup
 %ifarch s390 s390x
