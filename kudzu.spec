@@ -2,7 +2,7 @@ Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.1.113
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
