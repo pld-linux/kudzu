@@ -1,29 +1,26 @@
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
-Version:	1.1.113
+Version:	1.2.9
 Release:	1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	1ddb17d337ee213ba28b68bd76c07aaf
+# Source0-md5:	a6deca3cf1ee269c5825e627d35ef760
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
-Patch1:		%{name}-gcc295.patch
 URL:		http://rhlinux.redhat.com/kudzu/
 BuildRequires:	gettext-devel
-BuildRequires:	newt-devel
-BuildRequires:	pciutils-devel >= 2.1.99
-%ifarch s390 s390x
-BuildRequires:	perl-base
-%endif
+BuildRequires:	pciutils-devel >= 2.2.0-4
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
-PreReq:		modutils >= 2.3.11-5
+BuildRequires:	rpm-pythonprov
+BuildRequires:	sed >= 4.0
 %pyrequires_eq	python-libs
-Requires:	hwdata
-Requires:	pam >= 0.74-17
+Requires:	hwdata >= 0.169
+Requires:	module-init-tools
+Requires:	pam >= 0.75
 %ifarch ia64
 Requires:	/usr/sbin/eepro100-diag
 %endif
@@ -72,15 +69,15 @@ Skrypty rc dla kudzu.
 %prep
 %setup -q
 %patch0 -p1 -b .nopython
-%patch1 -p1
 install %{SOURCE1} .
 mv -f po/eu{_ES,}.po
 rm -f po/no.po
 
 # hack: do not start kudzu on s390/s390x on bootup
 %ifarch s390 s390x
-perl -pi -e "s/345/-/g" kudzu.init
+%{__sed} -i "s/345/-/g" kudzu.init
 %endif
+%{__sed} -i 's/-Wl,-Bstatic -lpopt/-lpopt -Wl,-Bstatic/' Makefile
 
 %build
 ln -s `pwd` kudzu
@@ -138,9 +135,13 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README hwconf-description
+%attr(755,root,root) /sbin/kudzu
 %attr(755,root,root) %{_sbindir}/kudzu
 %attr(755,root,root) %{_sbindir}/module_upgrade
 %attr(755,root,root) %{_sbindir}/fix-mouse-psaux
+%ifarch %{ix86} ppc
+%attr(755,root,root) %{_sbindir}/ddcprobe
+%endif
 %{_mandir}/man8/*
 %{py_sitedir}/kudzu.py*
 %attr(755,root,root) %{py_sitedir}/_kudzumodule.so
