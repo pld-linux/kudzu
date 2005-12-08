@@ -34,7 +34,6 @@ case "$1" in
 			killall kudzu
 			killall -9 kudzu
 		fi
-		# show "Starting %s service" kudzu
 		msg_starting kudzu
 		touch /var/lock/subsys/kudzu
 		daemon kudzu --quiet
@@ -59,7 +58,6 @@ case "$1" in
 	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|force-reload|status}"
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
 esac
