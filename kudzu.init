@@ -13,9 +13,6 @@
 # Source function library
 . /etc/rc.d/init.d/functions
 
-# Get network config
-. /etc/sysconfig/network
-
 # Set defaults
 OPTION1=""	# Strings
 OPTION2="-q"	#
