@@ -56,9 +56,9 @@ i konfiguracji.
 Summary:	rc-scripts for kudzu
 Summary(pl):	Skrypty rc dla kudzu
 Group:		Applications/System
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
+Requires:	rc-scripts
 
 %description rc
 rc-scripts for kudzu.
@@ -154,5 +154,5 @@ fi
 
 %files rc
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/kudzu
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kudzu
 %attr(754,root,root) /etc/rc.d/init.d/kudzu
