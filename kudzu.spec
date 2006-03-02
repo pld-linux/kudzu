@@ -16,6 +16,7 @@ BuildRequires:	pciutils-devel >= 2.2.0-4
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 %pyrequires_eq	python-libs
 Requires:	hwdata >= 0.169
@@ -118,17 +119,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post rc
 /sbin/chkconfig --add kudzu
-if [ -f /var/lock/subsys/kudzu ]; then
-	/etc/rc.d/init.d/kudzu restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/kudzu start\" to start kudzu %{version} services."
-fi
+%service kudzu restart "kudzu %{version} services"
 
 %preun rc
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/kudzu ]; then
-		/etc/rc.d/init.d/kudzu stop >&2
-	fi
+	%service kudzu stop
 	/sbin/chkconfig --del kudzu
 fi
 
