@@ -1,8 +1,10 @@
+# TODO
+# - optflags, cc
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.2.34.3
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
@@ -19,7 +21,6 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 %pyrequires_eq	python-libs
-Requires:	hal >= 0.2.96
 Requires:	hwdata >= 0.169
 Requires:	module-init-tools
 Requires:	pam >= 0.75
