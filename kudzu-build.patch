@@ -1,0 +1,16 @@
+diff -urN kudzu-1.2.34.3.org/Makefile kudzu-1.2.34.3/Makefile
+--- kudzu-1.2.34.3.org/Makefile	2006-02-14 05:29:16.000000000 +0100
++++ kudzu-1.2.34.3/Makefile	2007-01-01 12:54:52.974603750 +0100
+@@ -73,10 +73,10 @@
+ 	[ -n "$(VBEOBJS)" ] && rm -f $(VBEOBJS)
+ 
+ kudzu: libkudzu.a $(KUDOBJS) po
+-	$(CC) $(CFLAGS) $(LDFLAGS) $(KUDOBJS) -o kudzu -L. -lkudzu -L. -lpci -Wl,-Bstatic -lpopt -Wl,-Bdynamic
++	$(CC) $(CFLAGS) $(LDFLAGS) $(KUDOBJS) -o kudzu -L. -lkudzu -L. -lpci -lz -Wl,-Bstatic -lpopt -Wl,-Bdynamic
+ 
+ module_upgrade: libkudzu.a module_upgrade.c
+-	$(CC) $(CFLAGS) $(LDFLAGS) module_upgrade.c -o module_upgrade -L. -lkudzu -lpci
++	$(CC) $(CFLAGS) $(LDFLAGS) module_upgrade.c -o module_upgrade -L. -lkudzu -lpci -lz
+ 
+ _kudzumodule.so: libkudzu.a
+ 	for ver in $(PYTHONVERS) ; do \
