@@ -1,7 +1,7 @@
 # TODO
 # - optflags, cc
 Summary:	Hardware probing tool developed by Red Hat
-Summary(pl):	Narzêdzie do wykrywania sprzêtu rozwijane przez Red Hata
+Summary(pl.UTF-8):   NarzÄ™dzie do wykrywania sprzÄ™tu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.2.34.3
 Release:	3
@@ -38,13 +38,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Kudzu is a hardware probing tool run at system boot time to determine
 what hardware has been added or removed from the system.
 
-%description -l pl
-Kudzu to narzêdzie do wykrywania sprzêtu uruchamiane przy w³±czaniu
-systemu, okre¶laj±ce jaki sprzêt zosta³ dodany lub usuniêty.
+%description -l pl.UTF-8
+Kudzu to narzÄ™dzie do wykrywania sprzÄ™tu uruchamiane przy wÅ‚Ä…czaniu
+systemu, okreÅ›lajÄ…ce jaki sprzÄ™t zostaÅ‚ dodany lub usuniÄ™ty.
 
 %package devel
 Summary:	Development files needed for hardware probing using kudzu
-Summary(pl):	Pliki dla programistów u¿ywaj±cych kudzu do wykrywania sprzêtu
+Summary(pl.UTF-8):   Pliki dla programistÃ³w uÅ¼ywajÄ…cych kudzu do wykrywania sprzÄ™tu
 Group:		Development/Libraries
 Requires:	pciutils-devel
 
@@ -52,13 +52,13 @@ Requires:	pciutils-devel
 The kudzu-devel package contains the libkudzu library, which is used
 for hardware probing and configuration.
 
-%description devel -l pl
-Ten pakiet zawiera bibliotekê libkudzu, u¿ywan± do wykrywania sprzêtu
+%description devel -l pl.UTF-8
+Ten pakiet zawiera bibliotekÄ™ libkudzu, uÅ¼ywanÄ… do wykrywania sprzÄ™tu
 i konfiguracji.
 
 %package rc
 Summary:	rc-scripts for kudzu
-Summary(pl):	Skrypty rc dla kudzu
+Summary(pl.UTF-8):   Skrypty rc dla kudzu
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
@@ -67,7 +67,7 @@ Requires:	rc-scripts
 %description rc
 rc-scripts for kudzu.
 
-%description rc -l pl
+%description rc -l pl.UTF-8
 Skrypty rc dla kudzu.
 
 %prep
