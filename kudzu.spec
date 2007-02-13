@@ -1,7 +1,7 @@
 # TODO
 # - optflags, cc
 Summary:	Hardware probing tool developed by Red Hat
-Summary(pl.UTF-8):   Narzędzie do wykrywania sprzętu rozwijane przez Red Hata
+Summary(pl.UTF-8):	Narzędzie do wykrywania sprzętu rozwijane przez Red Hata
 Name:		kudzu
 Version:	1.2.34.3
 Release:	3
@@ -44,7 +44,7 @@ systemu, określające jaki sprzęt został dodany lub usunięty.
 
 %package devel
 Summary:	Development files needed for hardware probing using kudzu
-Summary(pl.UTF-8):   Pliki dla programistów używających kudzu do wykrywania sprzętu
+Summary(pl.UTF-8):	Pliki dla programistów używających kudzu do wykrywania sprzętu
 Group:		Development/Libraries
 Requires:	pciutils-devel
 
@@ -58,7 +58,7 @@ i konfiguracji.
 
 %package rc
 Summary:	rc-scripts for kudzu
-Summary(pl.UTF-8):   Skrypty rc dla kudzu
+Summary(pl.UTF-8):	Skrypty rc dla kudzu
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
