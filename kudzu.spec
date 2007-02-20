@@ -3,13 +3,13 @@
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl.UTF-8):	Narzędzie do wykrywania sprzętu rozwijane przez Red Hata
 Name:		kudzu
-Version:	1.2.34.3
-Release:	3
+Version:	1.2.64
+Release:	1
 License:	GPL
 Group:		Applications/System
 # from ftp://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/%{name}-%{version}.src.rpm
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	7846871272da61f50547901937717704
+# Source0-md5:	3eb6fae5e8f62409fd5149f2079f6060
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 Patch1:		%{name}-build.patch
@@ -125,7 +125,6 @@ fi
 %doc README hwconf-description
 %attr(755,root,root) /sbin/kudzu
 %attr(755,root,root) %{_sbindir}/kudzu
-%attr(755,root,root) %{_sbindir}/module_upgrade
 %attr(755,root,root) %{_sbindir}/fix-mouse-psaux
 %{_mandir}/man8/*
 %{py_sitedir}/kudzu.py*
