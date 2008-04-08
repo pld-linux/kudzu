@@ -1,5 +1,6 @@
 # TODO
 # - optflags, cc
+# - kudzu-1.2.81-1: req /usr/share/locale/ilo/LC_MESSAGES not found
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl.UTF-8):	Narzędzie do wykrywania sprzętu rozwijane przez Red Hata
 Name:		kudzu
