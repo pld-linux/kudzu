@@ -1,6 +1,5 @@
 # TODO
 # - optflags, cc
-# - kudzu-1.2.81-1: req /usr/share/locale/ilo/LC_MESSAGES not found
 Summary:	Hardware probing tool developed by Red Hat
 Summary(pl.UTF-8):	Narzędzie do wykrywania sprzętu rozwijane przez Red Hata
 Name:		kudzu
@@ -104,6 +103,8 @@ install fix-mouse-psaux $RPM_BUILD_ROOT%{_sbindir}
 for f in $RPM_BUILD_ROOT%{_datadir}/locale/{eu,fi,id,pl,sk,sr,wa}/LC_MESSAGES/kudzu.mo ; do
 	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
 done
+# not supported by glibc (2.7)
+rm -fr $RPM_BUILD_ROOT%{_datadir}/locale/ilo
 %find_lang %{name}
 
 %clean
