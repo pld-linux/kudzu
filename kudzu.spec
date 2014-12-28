@@ -13,7 +13,7 @@ Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-nopython.patch
 URL:		http://fedora.redhat.com/projects/additional-projects/kudzu/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	pciutils-devel >= 2.2.0-4
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
